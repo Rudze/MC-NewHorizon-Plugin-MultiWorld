@@ -1,0 +1,7 @@
+fr\rudy\multiworld\listener\JoinSpawnListener.class
+fr\rudy\multiworld\commands\SetSpawnCommand.class
+fr\rudy\multiworld\manager\CoreSpawnManager.class
+fr\rudy\multiworld\commands\SpawnTeleportCommand.class
+fr\rudy\multiworld\commands\WorldCommand.class
+fr\rudy\multiworld\manager\WorldSpawnManager.class
+fr\rudy\multiworld\MultiWorldPlugin.class
