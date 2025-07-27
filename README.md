@@ -32,6 +32,12 @@ Classe principale (`JavaPlugin`) :
 
 ### 📂 `command`
 
+#### 🔹 `SetSpawnCommand.java`
+Commande `/setspawn` :
+- Disponible uniquement pour les joueurs.
+- Définit le **spawn global** à la position actuelle du joueur.
+- Sauvegardé dans la table `main_spawn` via `CoreSpawnManager`.
+
 #### 🔹 `SpawnTeleportCommand.java`
 Commande `/spawn` :
 - Vérifie que le joueur est bien un `Player`.
