@@ -8,9 +8,11 @@ import fr.rudy.multiworld.listener.JoinSpawnListener;
 import fr.rudy.multiworld.manager.CoreSpawnManager;
 import fr.rudy.multiworld.manager.WorldSpawnManager;
 import org.bukkit.Bukkit;
+import org.bukkit.WorldCreator;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -30,11 +32,25 @@ public class MultiWorldPlugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        // Charger tous les mondes
+        File worldFolder = getServer().getWorldContainer();
+        File[] files = worldFolder.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory() && new File(file, "level.dat").exists()) {
+                    String worldName = file.getName();
+                    if (Bukkit.getWorld(worldName) == null) {
+                        getLogger().info("🔄 Chargement du monde: " + worldName);
+                        new WorldCreator(worldName).createWorld();
+                    }
+                }
+            }
+        }
+
         Plugin plugin = Bukkit.getPluginManager().getPlugin("DatabaseAPI");
         if (plugin instanceof DatabaseAPI dbAPI && plugin.isEnabled()) {
             database = dbAPI.getDatabaseManager().getConnection();
 
-            // Créer les tables si elles n'existent pas
             try (Statement stmt = database.createStatement()) {
                 stmt.executeUpdate("CREATE TABLE IF NOT EXISTS main_spawn (" +
                         "id INTEGER PRIMARY KEY CHECK (id = 0), " +
@@ -59,12 +75,10 @@ public class MultiWorldPlugin extends JavaPlugin {
             return;
         }
 
-        // Enregistrement des commandes
         getCommand("spawn").setExecutor(new SpawnTeleportCommand());
         getCommand("world").setExecutor(new WorldCommand());
         getCommand("setspawn").setExecutor(new SetSpawnCommand());
 
-        // Listener de téléportation au spawn
         Bukkit.getPluginManager().registerEvents(new JoinSpawnListener(coreSpawnManager), this);
 
         getLogger().info("✅ MultiWorld activé !");

@@ -3,6 +3,7 @@ package fr.rudy.multiworld.manager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,7 +42,12 @@ public class CoreSpawnManager {
         )) {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                World world = Bukkit.getWorld(rs.getString("world"));
+                String worldName = rs.getString("world");
+
+                World world = Bukkit.getWorld(worldName);
+                if (world == null) {
+                    world = Bukkit.createWorld(new WorldCreator(worldName));
+                }
                 if (world == null) return null;
 
                 return new Location(
@@ -59,7 +65,7 @@ public class CoreSpawnManager {
         return null;
     }
 
-    // ✅ Alias pour getGlobalSpawn() (si tu veux nommer ainsi ailleurs)
+    // ✅ Alias pour getGlobalSpawn()
     public Location getGlobalSpawn() {
         return getSpawn();
     }
