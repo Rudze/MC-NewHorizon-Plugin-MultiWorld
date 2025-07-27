@@ -11,12 +11,12 @@ public class SetSpawnCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("§cSeuls les joueurs peuvent utiliser cette commande !");
+            //sender.sendMessage("§cSeuls les joueurs peuvent utiliser cette commande !");
             return true;
         }
 
         MultiWorldPlugin.get().getCoreSpawnManager().setSpawn(player.getLocation());
-        player.sendMessage("§aSpawn global défini avec succès !");
+        player.sendMessage("<glyph:info> §bSpawn global défini !");
         return true;
     }
 }

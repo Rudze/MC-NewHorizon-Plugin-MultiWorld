@@ -19,18 +19,18 @@ public class SpawnTeleportCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("§cSeuls les joueurs peuvent utiliser cette commande !");
+            //sender.sendMessage("§cSeuls les joueurs peuvent utiliser cette commande !");
             return true;
         }
 
         Location spawn = spawnManager.getGlobalSpawn();
         if (spawn == null) {
-            player.sendMessage("§cAucun spawn n’a encore été défini.");
+            player.sendMessage("<glyph:error> §cAucun spawn n’a encore été défini.");
             return true;
         }
 
         player.teleport(spawn);
-        player.sendMessage("§aTéléportation au spawn !");
+        player.sendMessage("<glyph:info> §bTéléportation au spawn !");
         return true;
     }
 }

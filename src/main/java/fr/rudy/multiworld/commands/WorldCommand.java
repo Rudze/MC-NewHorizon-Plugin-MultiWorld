@@ -15,12 +15,12 @@ public class WorldCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission(permission)) {
-            sender.sendMessage("§cVous n'avez pas la permission !");
+            //sender.sendMessage("<glyph:error> §cVous n'avez pas la permission !");
             return true;
         }
 
         if (args.length < 2) {
-            sender.sendMessage("§cUtilisation : /world <create|remove|tp|setspawn> <nom> [joueur]");
+            //sender.sendMessage("<glyph:error> §cUtilisation : /world <create|remove|tp|setspawn> <nom> [joueur]");
             return true;
         }
 
@@ -38,7 +38,7 @@ public class WorldCommand implements CommandExecutor {
             case "setspawn":
                 return setWorldSpawn(sender, worldName);
             default:
-                sender.sendMessage("§cCommande inconnue. Utilisez : create, remove, tp, setspawn");
+                //sender.sendMessage("§cCommande inconnue. Utilisez : create, remove, tp, setspawn");
                 return true;
         }
     }
