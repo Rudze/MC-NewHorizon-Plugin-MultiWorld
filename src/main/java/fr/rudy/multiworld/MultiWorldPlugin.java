@@ -47,7 +47,7 @@ public class MultiWorldPlugin extends JavaPlugin {
             }
         }
 
-        Plugin plugin = Bukkit.getPluginManager().getPlugin("DatabaseAPI");
+        Plugin plugin = Bukkit.getPluginManager().getPlugin("xDatabaseAPI");
         if (plugin instanceof DatabaseAPI dbAPI && plugin.isEnabled()) {
             database = dbAPI.getDatabaseManager().getConnection();
 
@@ -70,7 +70,7 @@ public class MultiWorldPlugin extends JavaPlugin {
             coreSpawnManager = new CoreSpawnManager(database);
             worldSpawnManager = new WorldSpawnManager(database);
         } else {
-            getLogger().severe("❌ DatabaseAPI introuvable ou désactivé !");
+            getLogger().severe("❌ xDatabaseAPI introuvable ou désactivé !");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }

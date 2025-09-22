@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fr.rudy</groupId>
-    <artifactId>MultiWorld</artifactId>
+    <artifactId>xMultiWorld</artifactId>
     <version>1.2</version>
     <packaging>jar</packaging>
 
