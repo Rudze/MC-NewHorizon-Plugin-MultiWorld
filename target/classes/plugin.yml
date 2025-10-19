@@ -5,6 +5,7 @@ api-version: '1.21'
 depend: [xDataBaseAPI]
 softdepend: [SuperiorSkyblock2]
 
+
 commands:
   spawn:
     description: Téléporte au spawn global

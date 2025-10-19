@@ -32,13 +32,27 @@ public class MultiWorldPlugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        // Charger tous les mondes
+        // Liste des mondes à ignorer (ex : ceux gérés par d'autres plugins)
+        String[] excludedWorlds = {"SuperiorWorld"};
+
+        // Charger tous les mondes sauf ceux exclus
         File worldFolder = getServer().getWorldContainer();
         File[] files = worldFolder.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory() && new File(file, "level.dat").exists()) {
                     String worldName = file.getName();
+
+                    // Ignore les mondes gérés par d'autres plugins
+                    boolean isExcluded = false;
+                    for (String excluded : excludedWorlds) {
+                        if (worldName.equalsIgnoreCase(excluded)) {
+                            isExcluded = true;
+                            break;
+                        }
+                    }
+                    if (isExcluded) continue;
+
                     if (Bukkit.getWorld(worldName) == null) {
                         getLogger().info("🔄 Chargement du monde: " + worldName);
                         new WorldCreator(worldName).createWorld();
@@ -47,6 +61,7 @@ public class MultiWorldPlugin extends JavaPlugin {
             }
         }
 
+        // Initialiser la BDD
         Plugin plugin = Bukkit.getPluginManager().getPlugin("xDatabaseAPI");
         if (plugin instanceof DatabaseAPI dbAPI && plugin.isEnabled()) {
             database = dbAPI.getDatabaseManager().getConnection();
